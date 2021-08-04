@@ -53,6 +53,8 @@ Movement tracking would match that in approach one with a difference being in th
 #### Cons:
 * No signficant downside vs either other approach
 
+## Decision
+Based on future compatibility, easy of development and performance I decided to develop the third approach - leveraging a rover class and board/game class. 
 
 # Requirements
 
