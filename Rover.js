@@ -4,8 +4,11 @@ const Rover = (() => {
     // This allows for closure effect with autoincrementing id for
     // each new rover created
     return class Rover {
-        constructor() {
+        constructor(x, y, direction) {
             this.id = id++;
+            this.x = x;
+            this.y = y;
+            this.direction = direction;
         }
     }
 })();
