@@ -2,16 +2,34 @@ const Plateau = require("./Plateau");
 const Rover = require("./Rover");
 
 class Mission {
-    constructor(instructions) {
+    constructor(instructions = "") {
         this.instructions = instructions;
         this.plateau = null
     }
 
-    executeInstructions(instructions) {
+    executeInstructions(instructions = this.instructions) {
+        console.log("Beginning execution of: ", instructions)
         const lines = instructions.split("\n");
 
         for(let i = 0; i < lines.length; i++) {
-            this.readLine(line)
+            this.readLine(lines[i])
+        }
+
+        this.outputMissionResults()
+    }
+
+    outputMissionResults() {
+        this.plateau.deactivateRover()
+        if (!this.plateau) {
+            console.log("You haven't set a plateau yet. No mission has been executed.")
+        } else {
+            for (const rover of this.plateau.rovers) {
+                if (rover.status === "Destroyed") {
+                    console.log(`Oops... Looks like Rover${rover.id} didn't make it. Better luck next time.`)
+                } else {
+                    console.log(`Rover${rover.id}: ${rover.x} ${rover.y} ${rover.direction}`)
+                }
+            }
         }
     }
 

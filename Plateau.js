@@ -29,7 +29,7 @@ class Plateau {
             this.activeRover = null;
             this.activateRoverById(rover.id);
         } else if (this.isSpaceInBounds(rover.x, rover.y) && this.isSpaceFree(rover.x, rover.y)) {
-            console.log(`Rover ${rover.id} has landed!`)
+            console.log(`Rover ${rover.id} has landed at [${rover.x}, ${rover.y}]!`)
 
         } else {
             console.log(`Oh the humanity! Rover ${rover.id} has crashed!`)
@@ -45,6 +45,12 @@ class Plateau {
             this.rovers.push(this.activeRover);
             this.activeRover = null
         }
+    }
+
+    findRoverByDestination(x, y) {
+        return this.rovers.find(rover => {
+            return rover.status !== "Destroyed" && rover.x === x && rover.y === y;
+        });
     }
 
     isSpaceInBounds(x, y) {
@@ -64,9 +70,7 @@ class Plateau {
             return false
         }
 
-        const foundRover = this.rovers.find(rover => {
-            return rover.status !== "Destroyed" && rover.x === x && rover.y === y;
-        });
+        const foundRover = this.findRoverByDestination(x, y);
 
         if (foundRover) {
             return false
@@ -82,12 +86,22 @@ class Plateau {
 
         if (cmd === "L" || cmd === "R") {
             this.activeRover.turn(cmd);
+            console.log(`Rover${this.activeRover.id} turned "${this.activeRover.direction}"`);
         } else {
             const destination = this.activeRover.findDestinationCoordinates();
             if (this.isSpaceFree(destination[0], destination[1])) {
+                console.log(`Rover${this.activeRover.id} has moved to [${destination}]`)
                 this.activeRover.moveForward();
+
             } else {
                 console.log(`Oh the humanity! Rover ${this.activeRover.id} has crashed!`)
+
+                if (!this.isSpaceInBounds(destination[0], destination[1])) {
+                    console.log("Tried to move out of bounds on to ", destination)
+                } else {
+                    const collidedRover = this.findRoverByDestination(destination[0], destination[1]);
+                    console.log(`Tried to move in to space  [${destination}] but Rover${collidedRover.id} was already there!`)
+                }
                 this.activeRover.destroy()
                 this.rovers.push(this.activeRover);
                 this.activeRover = null
