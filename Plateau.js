@@ -23,9 +23,14 @@ class Plateau {
 
         this.activeRover = rover
         this.activeRover.status = "Active"
-
-        if (this.isSpaceInBounds(rover.x, rover.y) && this.isSpaceFree(rover.x, rover.y)) {
+        
+        if (this.rovers.find(currentRover => currentRover.id === rover.id)) {
+            console.log(`Tried to create a rover with an id that already exists. Activating rover ${rover.id}`);
+            this.activeRover = null;
+            this.activateRoverById(rover.id);
+        } else if (this.isSpaceInBounds(rover.x, rover.y) && this.isSpaceFree(rover.x, rover.y)) {
             console.log(`Rover ${rover.id} has landed!`)
+
         } else {
             console.log(`Oh the humanity! Rover ${rover.id} has crashed!`)
             this.activeRover.destroy()

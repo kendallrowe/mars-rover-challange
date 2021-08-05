@@ -19,7 +19,7 @@ describe("Plateau initialization tests", () => {
 describe("Plateau space checking tests", () => {
     
     const testPlateau = new Plateau(5, 5)
-    const testRover = new Rover(0, 0, "N");
+    const testRover = new Rover(1, 0, 0, "N");
     testPlateau.addRover(testRover);
 
     test("isSpaceInBounds returns true for an inbound space", () => {
@@ -38,7 +38,7 @@ describe("Plateau space checking tests", () => {
     });
 
     test("isSpaceFree returns false for an occupied space", () => {
-        const testRover2 = new Rover(0, 0, "N");
+        const testRover2 = new Rover(2, 0, 0, "N");
         testPlateau.addRover(testRover2);
 
         const isSpaceFree = testPlateau.isSpaceFree(0, 0);
@@ -56,27 +56,39 @@ describe("Plateau add rover method tests", () => {
     
     test("if plateau can add a rover", () => {
         const testPlateau = new Plateau(5, 5)
-        const testRover1 = new Rover(0, 0, "N");
+        const testRover1 = new Rover(1, 0, 0, "N");
         testPlateau.addRover(testRover1);
         expect(testPlateau.activeRover.x).toBe(0);
     });
 
     test("if plateau can add a second rover", () => {
         const testPlateau = new Plateau(5, 5)
-        const testRover1 = new Rover(0, 0, "N");
+        const testRover1 = new Rover(1, 0, 0, "N");
         testPlateau.addRover(testRover1);
 
-        const testRover2 = new Rover(1, 1, "N");
+        const testRover2 = new Rover(2, 1, 1, "N");
         testPlateau.addRover(testRover2);
         expect(testPlateau.activeRover.x).toBe(1);
         expect(testPlateau.rovers.length).toBe(1);
         expect(testPlateau.rovers[0].x).toBe(0);
     });
+
+    test("if addition fails when adding a second rover with an already existing id", () => {
+        const testPlateau = new Plateau(5, 5)
+        const testRover1 = new Rover(1, 0, 0, "N");
+        const testRover2 = new Rover(1, 0, 0, "N");
+
+        testPlateau.addRover(testRover1);
+        testPlateau.addRover(testRover2);
+        expect(testPlateau.rovers.length).toBe(0);
+        expect(testPlateau.activeRover.id).toBe(1);
+    });
+
     
     test("if addition fails when adding a rover to an occupied space", () => {
         const testPlateau = new Plateau(5, 5)
-        const testRover1 = new Rover(0, 0, "N");
-        const testRover2 = new Rover(0, 0, "N");
+        const testRover1 = new Rover(1, 0, 0, "N");
+        const testRover2 = new Rover(2, 0, 0, "N");
 
         testPlateau.addRover(testRover1);
         testPlateau.addRover(testRover2);
@@ -87,7 +99,7 @@ describe("Plateau add rover method tests", () => {
 
     test("if addition fails when adding a rover to an out of bounds space", () => {
         const testPlateau = new Plateau(5, 5)
-        const testRover1 = new Rover(32, 23, "N");
+        const testRover1 = new Rover(1, 32, 23, "N");
 
         testPlateau.addRover(testRover1);
         expect(testPlateau.rovers.length).toBe(1);
@@ -101,7 +113,7 @@ describe("Plateau rover movement tests", () => {
 
     test("if rover can move forward to an open square", () => {
         const plateau = new Plateau(5, 5);
-        plateau.addRover(new Rover(0, 0, "N"));
+        plateau.addRover(new Rover(1, 0, 0, "N"));
 
         plateau.moveActiveRover("M");
         expect(plateau.activeRover.x).toBe(0)
@@ -111,7 +123,7 @@ describe("Plateau rover movement tests", () => {
     
     test("if rover moves forward out of bounds it is destroyed", () => {
         const plateau = new Plateau(5, 5);
-        plateau.addRover(new Rover(0, 0, "S"));
+        plateau.addRover(new Rover(1, 0, 0, "S"));
 
         plateau.moveActiveRover("M");
         expect(plateau.rovers.length).toBe(1);
@@ -121,8 +133,8 @@ describe("Plateau rover movement tests", () => {
 
     test("if rover moves forward to an occupied space it is destroyed", () => {
         const plateau = new Plateau(5, 5);
-        plateau.addRover(new Rover(1, 0, "N"));
-        plateau.addRover(new Rover(0, 0, "E"));
+        plateau.addRover(new Rover(1, 1, 0, "N"));
+        plateau.addRover(new Rover(2, 0, 0, "E"));
 
         plateau.moveActiveRover("M");
         expect(plateau.rovers.length).toBe(2);
