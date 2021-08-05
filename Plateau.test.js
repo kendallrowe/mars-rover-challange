@@ -5,7 +5,7 @@ const Rover = require("./Rover");
 
 describe("Plateau initialization tests", () => {
     
-    const testPlateau = new Plateau(5, 5)
+    const testPlateau = new Plateau(5, 5);
 
     test("if Plateau can be initialized with dimensions, ", () => {
 
@@ -18,7 +18,7 @@ describe("Plateau initialization tests", () => {
 
 describe("Plateau space checking tests", () => {
     
-    const testPlateau = new Plateau(5, 5)
+    const testPlateau = new Plateau(5, 5);
     const testRover = new Rover(1, 0, 0, "N");
     testPlateau.addRover(testRover);
 
@@ -55,14 +55,14 @@ describe("Plateau add rover method tests", () => {
     
     
     test("if plateau can add a rover", () => {
-        const testPlateau = new Plateau(5, 5)
+        const testPlateau = new Plateau(5, 5);
         const testRover1 = new Rover(1, 0, 0, "N");
         testPlateau.addRover(testRover1);
         expect(testPlateau.activeRover.x).toBe(0);
     });
 
     test("if plateau can add a second rover", () => {
-        const testPlateau = new Plateau(5, 5)
+        const testPlateau = new Plateau(5, 5);
         const testRover1 = new Rover(1, 0, 0, "N");
         testPlateau.addRover(testRover1);
 
@@ -74,7 +74,7 @@ describe("Plateau add rover method tests", () => {
     });
 
     test("if addition fails when adding a second rover with an already existing id", () => {
-        const testPlateau = new Plateau(5, 5)
+        const testPlateau = new Plateau(5, 5);
         const testRover1 = new Rover(1, 0, 0, "N");
         const testRover2 = new Rover(1, 0, 0, "N");
 
@@ -86,7 +86,7 @@ describe("Plateau add rover method tests", () => {
 
     
     test("if addition fails when adding a rover to an occupied space", () => {
-        const testPlateau = new Plateau(5, 5)
+        const testPlateau = new Plateau(5, 5);
         const testRover1 = new Rover(1, 0, 0, "N");
         const testRover2 = new Rover(2, 0, 0, "N");
 
@@ -98,7 +98,7 @@ describe("Plateau add rover method tests", () => {
     });
 
     test("if addition fails when adding a rover to an out of bounds space", () => {
-        const testPlateau = new Plateau(5, 5)
+        const testPlateau = new Plateau(5, 5);
         const testRover1 = new Rover(1, 32, 23, "N");
 
         testPlateau.addRover(testRover1);
@@ -116,8 +116,8 @@ describe("Plateau rover movement tests", () => {
         plateau.addRover(new Rover(1, 0, 0, "N"));
 
         plateau.moveActiveRover("M");
-        expect(plateau.activeRover.x).toBe(0)
-        expect(plateau.activeRover.y).toBe(1)
+        expect(plateau.activeRover.x).toBe(0);
+        expect(plateau.activeRover.y).toBe(1);
         expect(plateau.activeRover.status).toBe("Active");
     });
     
@@ -153,18 +153,18 @@ describe("Rover activation tests", () => {
         plateau.addRover(new Rover(2, 1, 1, "N"));
 
         expect(plateau.activeRover.id).toBe(2);
-        expect(plateau.rovers[0].id).toBe(1)
-        plateau.activateRoverById(1)
+        expect(plateau.rovers[0].id).toBe(1);
+        plateau.activateRoverById(1);
         expect(plateau.activeRover.id).toBe(1);
-        expect(plateau.rovers[0].id).toBe(2)
+        expect(plateau.rovers[0].id).toBe(2);
     });
 
     test("if rover can be deactivated", () => {
         const plateau = new Plateau(5, 5);
         plateau.addRover(new Rover(1, 0, 0, "N"));
-        plateau.deactivateRover()
+        plateau.deactivateRover();
 
         expect(plateau.activeRover).toBeNull();
-        expect(plateau.rovers[0].id).toBe(1)
+        expect(plateau.rovers[0].id).toBe(1);
     });
 });

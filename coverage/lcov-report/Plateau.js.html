@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.03% </span>
+                <span class="strong">98.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>63/67</span>
+                <span class='fraction'>63/64</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>12/14</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95.24% </span>
+                <span class="strong">98.36% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>60/63</span>
+                <span class='fraction'>60/61</span>
             </div>
         
             
@@ -181,13 +181,7 @@
 <a name='L122'></a><a href='#L122'>122</a>
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
-<a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a>
-<a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L125'></a><a href='#L125'>125</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
@@ -311,26 +305,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span></td><td class="text"><pre class="prettyprint lang-js">class Plateau {
+<span class="cline-any cline-yes">2x</span></td><td class="text"><pre class="prettyprint lang-js">class Plateau {
     constructor(width, height) {
         this.width = width;
         this.height = height;
         this.rovers = [];
-        this.activeRover = null
+        this.activeRover = null;
     }
 &nbsp;
     activateRoverById(id) {
         if (this.activeRover &amp;&amp; this.activeRover.id === id) {
-            return this.activeRover
+            return this.activeRover;
         }
 &nbsp;
-        this.deactivateRover()
+        this.deactivateRover();
         const roverToActivate = this.rovers.find(rover =&gt; rover.id === id);
 &nbsp;
         <span class="missing-if-branch" title="else path not taken" >E</span>if (roverToActivate) {
@@ -343,10 +331,10 @@
     }
 &nbsp;
     addRover(rover) {
-        this.deactivateRover()
+        this.deactivateRover();
 &nbsp;
-        this.activeRover = rover
-        this.activeRover.status = "Active"
+        this.activeRover = rover;
+        this.activeRover.status = "Active";
         
         // Check if rover with same id already exists on the plateau.
         // If it does do not create a new rover and instead activate current
@@ -356,21 +344,21 @@
             this.activateRoverById(rover.id);
             // If valid landing coordinates given, give success landing message
         } else if (this.isSpaceInBounds(rover.x, rover.y) &amp;&amp; this.isSpaceFree(rover.x, rover.y)) {
-            console.log(`Rover${rover.id} has landed at [${rover.x}, ${rover.y}]!`)
+            console.log(`Rover${rover.id} has landed at [${rover.x}, ${rover.y}]!`);
         } else {
             // If invalid landing coordinate was selected, crash and destroy rover
-            console.log(`Oh the humanity! Rover ${rover.id} has crashed!`)
-            this.activeRover.destroy()
+            console.log(`Oh the humanity! Rover ${rover.id} has crashed!`);
+            this.activeRover.destroy();
             this.rovers.push(this.activeRover);
-            this.activeRover = null
+            this.activeRover = null;
         }
     }
     
     deactivateRover() {
         if (this.activeRover) {
-            this.activeRover.status = "Idle"
+            this.activeRover.status = "Idle";
             this.rovers.push(this.activeRover);
-            this.activeRover = null
+            this.activeRover = null;
         }
     }
 &nbsp;
@@ -382,28 +370,28 @@
 &nbsp;
     isSpaceInBounds(x, y) {
         if (x &gt; this.width || y &gt; this.height) {
-            return false
+            return false;
         }
 &nbsp;
         if (x &lt; 0 || y &lt; 0) {
-            return false
+            return false;
         }
 &nbsp;
-        return true
+        return true;
     }
 &nbsp;
     isSpaceFree(x, y) {
         if (!this.isSpaceInBounds(x, y)) {
-            return false
+            return false;
         }
 &nbsp;
         const foundRover = this.findRoverByDestination(x, y);
 &nbsp;
         if (foundRover) {
-            return false
+            return false;
         }
 &nbsp;
-        return true
+        return true;
     }
 &nbsp;
     moveActiveRover(cmd) {
@@ -421,29 +409,23 @@
             // Trigger different events based on status of destination square
             if (this.isSpaceFree(destination[0], destination[1])) {
                 // Successful move for valid destination
-                console.log(`Rover${this.activeRover.id} has moved to [${destination}]`)
+                console.log(`Rover${this.activeRover.id} has moved to [${destination}]`);
                 this.activeRover.moveForward();
             } else {
                 // Crash destruction event and determine cause for console logging
-                console.log(`Oh the humanity! Rover ${this.activeRover.id} has crashed!`)
+                console.log(`Oh the humanity! Rover ${this.activeRover.id} has crashed!`);
 &nbsp;
                 if (!this.isSpaceInBounds(destination[0], destination[1])) {
-                    console.log("Tried to move out of bounds on to ", destination)
+                    console.log("Tried to move out of bounds on to ", destination);
                 } else {
                     const collidedRover = this.findRoverByDestination(destination[0], destination[1]);
-                    console.log(`Tried to move in to space  [${destination}] but Rover${collidedRover.id} was already there!`)
+                    console.log(`Tried to move in to space  [${destination}] but Rover${collidedRover.id} was already there!`);
                 }
-                this.activeRover.destroy()
+                this.activeRover.destroy();
                 this.rovers.push(this.activeRover);
-                this.activeRover = null
+                this.activeRover = null;
             }
         }
-    }
-&nbsp;
-<span class="fstat-no" title="function not covered" >    re</span>turnActiveRovers() {
-<span class="cstat-no" title="statement not covered" >        this.deactivateRover()</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >        return this.rovers.filter(<span class="fstat-no" title="function not covered" >ro</span>ver =&gt; <span class="cstat-no" title="statement not covered" >rover.status === "Idle")</span></span>
     }
 }
 &nbsp;
@@ -454,7 +436,7 @@ module.exports = Plateau;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 05 2021 18:21:57 GMT-0400 (Eastern Daylight Time)
+                at Thu Aug 05 2021 18:48:01 GMT-0400 (Eastern Daylight Time)
             </div>
         </div>
         <script src="prettify.js"></script>

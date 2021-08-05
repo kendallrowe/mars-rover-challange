@@ -29,7 +29,7 @@ describe("Read line method tests", () => {
     
     test("if read line of plateau correctly instantiates a plateau on to the mission", () => {
         // Plateau set up reading
-        const instruction = "Plateau:5 5"
+        const instruction = "Plateau:5 5";
 
         testMission.readLine(instruction);
         expect(testMission.plateau.width).toBe(5);
@@ -37,16 +37,16 @@ describe("Read line method tests", () => {
 
     test("if read line of landing of rover correctly instantiates a rover and activates it", () => {
         // Create rover from landing instructions
-        const instruction = "Rover1 Landing:1 2 N"
+        const instruction = "Rover1 Landing:1 2 N";
 
         testMission.readLine(instruction);
-        expect(testMission.plateau.activeRover.id).toBe(1)
-        expect(testMission.plateau.rovers.length).toBe(0)
+        expect(testMission.plateau.activeRover.id).toBe(1);
+        expect(testMission.plateau.rovers.length).toBe(0);
     });
 
     test("if read line of movement instruction moves a rover", () => {
         // Rover Movement execution
-        const instruction = "Rover1 Instructions:LM"
+        const instruction = "Rover1 Instructions:LM";
 
         testMission.readLine(instruction);
         expect(testMission.plateau.activeRover.direction).toBe("W");
@@ -57,7 +57,7 @@ describe("Read line method tests", () => {
     test("if read line of movement instruction for a destroyed rover triggers no event", () => {
         testMission.plateau.addRover(new Rover(5, 32, 32, "N"));
         // Rover Movement execution
-        const instruction = "Rover5 Instructions:LM"
+        const instruction = "Rover5 Instructions:LM";
 
         testMission.readLine(instruction);
         expect(testMission.plateau.activeRover).toBeNull();
@@ -79,16 +79,16 @@ describe("Multiple rover method tests", () => {
 
     test("if read line adding a second rover correctly adds and activates new rover", () => {
         // Rover Movement execution
-        const instruction = "Rover2 Landing:3 3 E"
+        const instruction = "Rover2 Landing:3 3 E";
 
         testMission.readLine(instruction);
-        expect(testMission.plateau.activeRover.id).toBe(2)
-        expect(testMission.plateau.rovers.length).toBe(1)
+        expect(testMission.plateau.activeRover.id).toBe(2);
+        expect(testMission.plateau.rovers.length).toBe(1);
     });
 
     test("if read line of moving second rover moves the active rover", () => {
         // Rover Movement execution
-        const instruction = "Rover2 Instructions:RMM"
+        const instruction = "Rover2 Instructions:RMM";
 
         testMission.readLine(instruction);
         expect(testMission.plateau.activeRover.direction).toBe("S");

@@ -4,7 +4,7 @@ class Rover {
         this.x = x;
         this.y = y;
         this.direction = direction;
-        this.status = "Active"
+        this.status = "Active";
     }
 
     destroy() {
@@ -19,7 +19,7 @@ class Rover {
             E: [1, 0],
             S: [0, -1],
             W: [-1, 0]
-        }
+        };
 
         const movementChange = compassMap[this.direction];
         // Read coordinates change as determined by the requested direction and adjust current coordinates
@@ -27,7 +27,7 @@ class Rover {
     }
 
     moveForward() {
-        const movementChange = this.findDestinationCoordinates()
+        const movementChange = this.findDestinationCoordinates();
 
         this.x = movementChange[0];
         this.y = movementChange[1];

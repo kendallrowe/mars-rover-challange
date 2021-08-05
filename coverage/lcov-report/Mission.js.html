@@ -317,32 +317,32 @@ const Rover = require("./Rover");
 class Mission {
     constructor(instructions = <span class="branch-0 cbranch-no" title="branch not covered" >"")</span> {
         this.instructions = instructions;
-        this.plateau = null
+        this.plateau = null;
     }
 &nbsp;
 <span class="fstat-no" title="function not covered" >    ex</span>ecuteInstructions(instructions = <span class="branch-0 cbranch-no" title="branch not covered" >this.instructions)</span> {
-<span class="cstat-no" title="statement not covered" >        console.log("Beginning execution of: ", instructions)</span>
-<span class="cstat-no" title="statement not covered" >        console.log("===============================")</span>
+<span class="cstat-no" title="statement not covered" >        console.log("Beginning execution of: ", instructions);</span>
+<span class="cstat-no" title="statement not covered" >        console.log("===============================");</span>
         const lines = <span class="cstat-no" title="statement not covered" >instructions.split("\n");</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        for(let i = <span class="cstat-no" title="statement not covered" >0;</span> i &lt; lines.length; i++) {</span>
-<span class="cstat-no" title="statement not covered" >            this.readLine(lines[i])</span>
+<span class="cstat-no" title="statement not covered" >            this.readLine(lines[i]);</span>
         }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        this.outputMissionResults()</span>
+<span class="cstat-no" title="statement not covered" >        this.outputMissionResults();</span>
     }
 &nbsp;
 <span class="fstat-no" title="function not covered" >    ou</span>tputMissionResults() {
         // Print method to output final output of the mission rovers
 <span class="cstat-no" title="statement not covered" >        this.plateau.deactivateRover()</span>
 <span class="cstat-no" title="statement not covered" >        if (!this.plateau) {</span>
-<span class="cstat-no" title="statement not covered" >            console.log("You haven't set a plateau yet. No mission has been executed.")</span>
+<span class="cstat-no" title="statement not covered" >            console.log("You haven't set a plateau yet. No mission has been executed.");</span>
         } else {
 <span class="cstat-no" title="statement not covered" >            for (const rover of this.plateau.rovers) {</span>
 <span class="cstat-no" title="statement not covered" >                if (rover.status === "Destroyed") {</span>
-<span class="cstat-no" title="statement not covered" >                    console.log(`Oops... Looks like Rover${rover.id} didn't make it. Better luck next time.`)</span>
+<span class="cstat-no" title="statement not covered" >                    console.log(`Oops... Looks like Rover${rover.id} didn't make it. Better luck next time.`);</span>
                 } else {
-<span class="cstat-no" title="statement not covered" >                    console.log(`Rover${rover.id}: ${rover.x} ${rover.y} ${rover.direction}`)</span>
+<span class="cstat-no" title="statement not covered" >                    console.log(`Rover${rover.id}: ${rover.x} ${rover.y} ${rover.direction}`);</span>
                 }
             }
         }
@@ -369,7 +369,7 @@ class Mission {
         // Input validations
         <span class="missing-if-branch" title="if path not taken" >I</span>if (dimensionArr.filter(ele =&gt; ele).length !== 2) {
 <span class="cstat-no" title="statement not covered" >            console.log(`Invalid line: ${line}.`);</span>
-<span class="cstat-no" title="statement not covered" >            return</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
         }
 &nbsp;
         // Create new plateau
@@ -383,23 +383,23 @@ class Mission {
 &nbsp;
         const roverId = parseInt(line.substring(5, landingIndex - 1));
 &nbsp;
-        const roverCoords = line.substring(landingIndex + 8).split(" ")
+        const roverCoords = line.substring(landingIndex + 8).split(" ");
 &nbsp;
         // Input validations
         <span class="missing-if-branch" title="if path not taken" >I</span>if (!roverId || roverCoords.length !== 3) {
 <span class="cstat-no" title="statement not covered" >            console.log(`Invalid line: ${line}`);</span>
-<span class="cstat-no" title="statement not covered" >            return</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
         }
 &nbsp;
         <span class="missing-if-branch" title="if path not taken" >I</span>if (!this.plateau) {
 <span class="cstat-no" title="statement not covered" >            console.log("No plateau has been created yet! Create somewhere to land first.");</span>
-<span class="cstat-no" title="statement not covered" >            return</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
         }
 &nbsp;
         // Create new rover
         const [x, y, direction] = roverCoords;
 &nbsp;
-        this.plateau.addRover(new Rover(roverId, parseInt(x), parseInt(y), direction))
+        this.plateau.addRover(new Rover(roverId, parseInt(x), parseInt(y), direction));
     }
 &nbsp;
     readRoverMovement(line) {
@@ -408,12 +408,12 @@ class Mission {
 &nbsp;
         const roverId = parseInt(line.substring(5, instructionIndex - 1));
 &nbsp;
-        const roverInstructions = line.substring(instructionIndex + 13)
+        const roverInstructions = line.substring(instructionIndex + 13);
 &nbsp;
         // Input validation
         <span class="missing-if-branch" title="if path not taken" >I</span>if (!roverId) {
 <span class="cstat-no" title="statement not covered" >            console.log(`Invalid line: ${line}`);</span>
-<span class="cstat-no" title="statement not covered" >            return</span>
+<span class="cstat-no" title="statement not covered" >            return;</span>
         }
 &nbsp;
         // Activate current rover
@@ -421,12 +421,12 @@ class Mission {
         
         // Loop through each command given in movement instructions
         for (let i = 0; i &lt; roverInstructions.length; i++) {
-            const cmd = roverInstructions.charAt(i)
+            const cmd = roverInstructions.charAt(i);
             <span class="missing-if-branch" title="else path not taken" >E</span>if (this.plateau.activeRover){
                 <span class="missing-if-branch" title="else path not taken" >E</span>if (["L", "R", "M"].includes(cmd)) {
-                    this.plateau.moveActiveRover(cmd)
+                    this.plateau.moveActiveRover(cmd);
                 } else {
-<span class="cstat-no" title="statement not covered" >                    console.log(`Found invalid character "${cmd}" when reading instructions: "${roverInstructions}" in line ${line}. Skipping this instruction.`)</span>
+<span class="cstat-no" title="statement not covered" >                    console.log(`Found invalid character "${cmd}" when reading instructions: "${roverInstructions}" in line ${line}. Skipping this instruction.`);</span>
                 }
             } else {
 <span class="cstat-no" title="statement not covered" >                break;</span>
@@ -434,7 +434,7 @@ class Mission {
 &nbsp;
         }
 &nbsp;
-        console.log(`Movement ended for Rover${roverId}`)
+        console.log(`Movement ended for Rover${roverId}`);
     }
 }
 &nbsp;
@@ -445,7 +445,7 @@ module.exports = Mission;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 05 2021 18:21:57 GMT-0400 (Eastern Daylight Time)
+                at Thu Aug 05 2021 18:48:01 GMT-0400 (Eastern Daylight Time)
             </div>
         </div>
         <script src="prettify.js"></script>
