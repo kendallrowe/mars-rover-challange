@@ -6,21 +6,39 @@ class Plateau {
         this.activeRover = null
     }
 
-    addRover(rover) {
-        if (this.activeRover) {
-            this.rovers.push(this.activeRover);
-            this.activeRover = null
+    activateRoverById(id) {
+        const roverToActivate = this.rovers.find(rover => rover.id === id);
+
+        if (roverToActivate) {
+            this.rovers = this.rovers.filter(rover => rover.id !== id);
+            this.activeRover = roverToActivate;
+            this.activeRover.status = "Active";
         }
 
+        return this.activeRover;
+    }
+
+    addRover(rover) {
+        this.deactivateRover()
+
         this.activeRover = rover
+        this.activeRover.status = "Active"
 
         if (this.isSpaceInBounds(rover.x, rover.y) && this.isSpaceFree(rover.x, rover.y)) {
             console.log(`Rover ${rover.id} has landed!`)
         } else {
             console.log(`Oh the humanity! Rover ${rover.id} has crashed!`)
+            this.activeRover.destroy()
+            this.rovers.push(this.activeRover);
             this.activeRover = null
-            rover.destroy()
-            this.rovers.push(rover);
+        }
+    }
+    
+    deactivateRover() {
+        if (this.activeRover) {
+            this.activeRover.status = "Idle"
+            this.rovers.push(this.activeRover);
+            this.activeRover = null
         }
     }
 
@@ -42,7 +60,7 @@ class Plateau {
         }
 
         const foundRover = this.rovers.find(rover => {
-            return rover.status !== "D" && rover.x === x && rover.y === y;
+            return rover.status !== "Destroyed" && rover.x === x && rover.y === y;
         });
 
         if (foundRover) {
@@ -70,8 +88,12 @@ class Plateau {
                 this.activeRover = null
             }
         }
+    }
 
+    returnActiveRovers() {
+        this.deactivateRover()
 
+        return this.rovers.filter(rover => rover.status === "Idle")
     }
 }
 

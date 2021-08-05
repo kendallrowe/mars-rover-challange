@@ -9,13 +9,13 @@ const Rover = (() => {
             this.x = x;
             this.y = y;
             this.direction = direction;
-            this.status = "A"
+            this.status = "Active"
         }
 
         destroy() {
             this.x = -1;
             this.y = -1;
-            this.status = "D";
+            this.status = "Destroyed";
         }
 
         findDestinationCoordinates() {

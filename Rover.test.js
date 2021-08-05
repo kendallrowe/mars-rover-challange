@@ -19,7 +19,7 @@ describe("Rover initialization tests", () => {
         expect(testRover.x).toBe(0);
         expect(testRover.y).toBe(0);
         expect(testRover.direction).toBe("N");
-        expect(testRover.status).toBe("A");
+        expect(testRover.status).toBe("Active");
     });
 });
 
@@ -30,7 +30,7 @@ describe("Rover destruction test", () => {
         testRover.destroy();
         expect(testRover.x).toBe(-1)
         expect(testRover.y).toBe(-1)
-        expect(testRover.status).toBe("D");
+        expect(testRover.status).toBe("Destroyed");
 
     });
 });

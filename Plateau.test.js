@@ -1,6 +1,8 @@
 const Plateau = require("./Plateau");
 const Rover = require("./Rover");
 
+// need activaterover, deactivaterover, returnActiveRovers
+
 describe("Plateau initialization tests", () => {
     
     const testPlateau = new Plateau(5, 5)
@@ -80,7 +82,7 @@ describe("Plateau add rover method tests", () => {
         testPlateau.addRover(testRover2);
         expect(testPlateau.rovers.length).toBe(2);
         expect(testPlateau.activeRover).toBeNull();
-        expect(testPlateau.rovers[1].status).toBe("D");
+        expect(testPlateau.rovers[1].status).toBe("Destroyed");
     });
 
     test("if addition fails when adding a rover to an out of bounds space", () => {
@@ -90,7 +92,7 @@ describe("Plateau add rover method tests", () => {
         testPlateau.addRover(testRover1);
         expect(testPlateau.rovers.length).toBe(1);
         expect(testPlateau.activeRover).toBeNull();
-        expect(testPlateau.rovers[0].status).toBe("D");
+        expect(testPlateau.rovers[0].status).toBe("Destroyed");
     });
 });
 
@@ -104,7 +106,7 @@ describe("Plateau rover movement tests", () => {
         plateau.moveActiveRover("M");
         expect(plateau.activeRover.x).toBe(0)
         expect(plateau.activeRover.y).toBe(1)
-        expect(plateau.activeRover.status).toBe("A");
+        expect(plateau.activeRover.status).toBe("Active");
     });
     
     test("if rover moves forward out of bounds it is destroyed", () => {
@@ -114,7 +116,7 @@ describe("Plateau rover movement tests", () => {
         plateau.moveActiveRover("M");
         expect(plateau.rovers.length).toBe(1);
         expect(plateau.activeRover).toBeNull();
-        expect(plateau.rovers[0].status).toBe("D");
+        expect(plateau.rovers[0].status).toBe("Destroyed");
     });
 
     test("if rover moves forward to an occupied space it is destroyed", () => {
@@ -125,7 +127,7 @@ describe("Plateau rover movement tests", () => {
         plateau.moveActiveRover("M");
         expect(plateau.rovers.length).toBe(2);
         expect(plateau.activeRover).toBeNull();
-        expect(plateau.rovers[0].status).toBe("A");
-        expect(plateau.rovers[1].status).toBe("D");
+        expect(plateau.rovers[0].status).toBe("Idle");
+        expect(plateau.rovers[1].status).toBe("Destroyed");
     });
 });
