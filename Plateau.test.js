@@ -9,33 +9,38 @@ describe("Plateau initialization tests", () => {
 
         expect(testPlateau.width).toBe(5);
         expect(testPlateau.height).toBe(5);
+        expect(testPlateau.rovers.length).toBe(0);
+        expect(testPlateau.activeRover).toBeNull();
     });
 });
 
 describe("Plateau space checking tests", () => {
     
     const testPlateau = new Plateau(5, 5)
+    const testRover = new Rover(0, 0, "N");
+    testPlateau.addRover(testRover);
 
     test("isSpaceInBounds returns true for an inbound space", () => {
         const spaceInBounds = testPlateau.isSpaceInBounds(2, 4);
         expect(spaceInBounds).toBe(true);
     });
 
-    test("isSpaceInBounds returns true for an out of bounds space", () => {
+    test("isSpaceInBounds returns false for an out of bounds space", () => {
         const spaceInBounds = testPlateau.isSpaceInBounds(23, 44);
         expect(spaceInBounds).toBe(false);
     });
 
     test("isSpaceFree returns true for an empty space", () => {
-        const isSpaceFree = testPlateau.isSpaceFree(0, 0);
+        const isSpaceFree = testPlateau.isSpaceFree(3, 3);
         expect(isSpaceFree).toBe(true);
     });
 
     test("isSpaceFree returns false for an occupied space", () => {
-        const testRover = new Rover(0, 0, "N");
-        testPlateau.addRover(testRover);
+        const testRover2 = new Rover(0, 0, "N");
+        testPlateau.addRover(testRover2);
+
         const isSpaceFree = testPlateau.isSpaceFree(0, 0);
-        expect(isSpaceFree).toBe(true);
+        expect(isSpaceFree).toBe(false);
     });
 
     test("isSpaceFree returns false for an out of bounds space", () => {
@@ -48,6 +53,13 @@ describe("Plateau add rover method tests", () => {
     
     
     test("if plateau can add a rover", () => {
+        const testPlateau = new Plateau(5, 5)
+        const testRover1 = new Rover(0, 0, "N");
+        testPlateau.addRover(testRover1);
+        expect(testPlateau.activeRover.x).toBe(0);
+    });
+
+    test("if plateau can add a second rover", () => {
         const testPlateau = new Plateau(5, 5)
         const testRover1 = new Rover(0, 0, "N");
         testPlateau.addRover(testRover1);

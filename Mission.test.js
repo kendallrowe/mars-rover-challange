@@ -1,6 +1,5 @@
 const Mission = require("./Mission");
 const Plateau = require("./Plateau");
-const Rover = require("./Rover");
 
 describe("Mission initialization tests", () => {
     
