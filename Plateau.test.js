@@ -112,9 +112,9 @@ describe("Plateau rover movement tests", () => {
         plateau.addRover(new Rover(0, 0, "S"));
 
         plateau.moveActiveRover("M");
-        expect(plateau.activeRover.x).toBe(-1)
-        expect(plateau.activeRover.y).toBe(-1)
-        expect(plateau.activeRover.status).toBe("D");
+        expect(plateau.rovers.length).toBe(1);
+        expect(plateau.activeRover).toBeNull();
+        expect(plateau.rovers[0].status).toBe("D");
     });
 
     test("if rover moves forward to an occupied space it is destroyed", () => {
@@ -123,8 +123,9 @@ describe("Plateau rover movement tests", () => {
         plateau.addRover(new Rover(0, 0, "E"));
 
         plateau.moveActiveRover("M");
-        expect(plateau.activeRover.x).toBe(-1)
-        expect(plateau.activeRover.y).toBe(-1)
-        expect(plateau.activeRover.status).toBe("D");
+        expect(plateau.rovers.length).toBe(2);
+        expect(plateau.activeRover).toBeNull();
+        expect(plateau.rovers[0].status).toBe("A");
+        expect(plateau.rovers[1].status).toBe("D");
     });
 });

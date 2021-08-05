@@ -80,14 +80,14 @@ describe("Rover movement tests", () => {
     test("if rover can turn left", () => {
         const testRover = new Rover(0, 0, "N")
 
-        testRover.move("L");
+        testRover.turn("L");
         expect(testRover.direction).toBe("W")
     });
 
     test("if rover can turn right", () => {
         const testRover = new Rover(0, 0, "N")
 
-        testRover.move("R");
+        testRover.turn("R");
         expect(testRover.direction).toBe("E")
     });
 });

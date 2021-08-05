@@ -18,14 +18,6 @@ const Rover = (() => {
             this.status = "D";
         }
 
-        move(cmd) {
-            if (cmd === "L" || cmd === "R") {
-                this.turn(cmd);
-            } else {
-                this.moveForward();
-            }
-        }
-
         findDestinationCoordinates() {
             const compassMap = {
                 N: [0, 1],

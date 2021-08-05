@@ -51,6 +51,28 @@ class Plateau {
 
         return true
     }
+
+    moveActiveRover(cmd) {
+        if (!this.activeRover) {
+            return false;
+        }
+
+        if (cmd === "L" || cmd === "R") {
+            this.activeRover.turn(cmd);
+        } else {
+            const destination = this.activeRover.findDestinationCoordinates();
+            if (this.isSpaceFree(destination[0], destination[1])) {
+                this.activeRover.moveForward();
+            } else {
+                console.log(`Oh the humanity! Rover ${this.activeRover.id} has crashed!`)
+                this.activeRover.destroy()
+                this.rovers.push(this.activeRover);
+                this.activeRover = null
+            }
+        }
+
+
+    }
 }
 
 module.exports = Plateau;
