@@ -4,7 +4,8 @@
   "description": "1. Out of bounds movement will trigger a game over event 2. Collision with other rovers on the game board will trigger a game over event 3. No collission terrain on the game board 4. Rovers will move sequentially (Rover 1 completes all moves, then Rover 2 lands and completes all moves)",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/kendallrowe/mars-rover-challange#readme",
   "devDependencies": {
+    "eslint": "^7.32.0",
     "jest": "^27.0.6"
   }
 }

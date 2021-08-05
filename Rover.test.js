@@ -1,5 +1,4 @@
 const Rover = require("./Rover");
-const Plateau = require("./Plateau");
 
 describe("Rover initialization tests", () => {
     
