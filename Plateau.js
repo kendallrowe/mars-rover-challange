@@ -42,7 +42,7 @@ class Plateau {
         }
 
         const foundRover = this.rovers.find(rover => {
-            return rover.x === x && rover.y === y;
+            return rover.status !== "D" && rover.x === x && rover.y === y;
         });
 
         if (foundRover) {

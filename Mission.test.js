@@ -16,4 +16,10 @@ describe("Mission initialization tests", () => {
         expect(testMission.instructions).toBe(instructions);
         expect(testMission.board.width).toBe(5);
     });
+
+    // Line by line parser
+    // Plateau set up reading
+    // Create rover from landing instructions
+    // Rover Movement execution
+    // Output messages
 });
