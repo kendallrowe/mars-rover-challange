@@ -36,7 +36,6 @@ describe("Rover destruction test", () => {
 });
 
 describe("Rover movement tests", () => {
-    const plateau = new Plateau(5);
 
     test("if rover can return destination coordinates of a forward move", () => {
         const testRover = new Rover(0, 0, "N")
@@ -44,34 +43,6 @@ describe("Rover movement tests", () => {
         const dest = testRover.findDestinationCoordinates();
         expect(dest[0]).toBe(0);
         expect(dest[1]).toBe(1);
-    });
-    
-    test("if rover can move forward to an open square", () => {
-        plateau.addRover(new Rover(0, 0, "N"));
-
-        plateau.moveActiveRover("M");
-        expect(plateau.activeRover.x).toBe(0)
-        expect(plateau.activeRover.y).toBe(1)
-        expect(plateau.activeRover.status).toBe("A");
-    });
-    
-    test("if rover moves forward out of bounds it is destroyed", () => {
-        plateau.addRover(new Rover(0, 0, "S"));
-
-        plateau.moveActiveRover("M");
-        expect(plateau.activeRover.x).toBe(-1)
-        expect(plateau.activeRover.y).toBe(-1)
-        expect(plateau.activeRover.status).toBe("D");
-    });
-
-    test("if rover moves forward to an occupied space it is destroyed", () => {
-        plateau.addRover(new Rover(1, 0, "N"));
-        plateau.addRover(new Rover(0, 0, "E"));
-
-        plateau.moveActiveRover("M");
-        expect(plateau.activeRover.x).toBe(-1)
-        expect(plateau.activeRover.y).toBe(-1)
-        expect(plateau.activeRover.status).toBe("D");
     });
 
     test("if rover can turn left", () => {
