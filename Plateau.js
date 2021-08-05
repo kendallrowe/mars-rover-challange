@@ -10,7 +10,7 @@ class Plateau {
         if (this.activeRover && this.activeRover.id === id) {
             return this.activeRover
         }
-        
+
         this.deactivateRover()
         const roverToActivate = this.rovers.find(rover => rover.id === id);
 
@@ -29,14 +29,17 @@ class Plateau {
         this.activeRover = rover
         this.activeRover.status = "Active"
         
+        // Check if rover with same id already exists on the plateau.
+        // If it does do not create a new rover and instead activate current
         if (this.rovers.find(currentRover => currentRover.id === rover.id)) {
             console.log(`Tried to create a rover with an id that already exists. Activating rover ${rover.id}`);
             this.activeRover = null;
             this.activateRoverById(rover.id);
+            // If valid landing coordinates given, give success landing message
         } else if (this.isSpaceInBounds(rover.x, rover.y) && this.isSpaceFree(rover.x, rover.y)) {
             console.log(`Rover${rover.id} has landed at [${rover.x}, ${rover.y}]!`)
-
         } else {
+            // If invalid landing coordinate was selected, crash and destroy rover
             console.log(`Oh the humanity! Rover ${rover.id} has crashed!`)
             this.activeRover.destroy()
             this.rovers.push(this.activeRover);
@@ -88,17 +91,21 @@ class Plateau {
         if (!this.activeRover) {
             return;
         }
-
+        // Call turn method on rover if valid turning command given
         if (cmd === "L" || cmd === "R") {
             this.activeRover.turn(cmd);
             console.log(`Rover${this.activeRover.id} turned "${this.activeRover.direction}"`);
         } else {
+            // Determine the destination coordinates based on active rovers current location and orientation
             const destination = this.activeRover.findDestinationCoordinates();
+            
+            // Trigger different events based on status of destination square
             if (this.isSpaceFree(destination[0], destination[1])) {
+                // Successful move for valid destination
                 console.log(`Rover${this.activeRover.id} has moved to [${destination}]`)
                 this.activeRover.moveForward();
-
             } else {
+                // Crash destruction event and determine cause for console logging
                 console.log(`Oh the humanity! Rover ${this.activeRover.id} has crashed!`)
 
                 if (!this.isSpaceInBounds(destination[0], destination[1])) {

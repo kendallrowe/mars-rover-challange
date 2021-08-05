@@ -180,7 +180,14 @@
 <a name='L121'></a><a href='#L121'>121</a>
 <a name='L122'></a><a href='#L122'>122</a>
 <a name='L123'></a><a href='#L123'>123</a>
-<a name='L124'></a><a href='#L124'>124</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a>
+<a name='L126'></a><a href='#L126'>126</a>
+<a name='L127'></a><a href='#L127'>127</a>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">14x</span>
@@ -211,10 +218,13 @@
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -275,8 +285,12 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -315,7 +329,7 @@
         if (this.activeRover &amp;&amp; this.activeRover.id === id) {
             return this.activeRover
         }
-        
+&nbsp;
         this.deactivateRover()
         const roverToActivate = this.rovers.find(rover =&gt; rover.id === id);
 &nbsp;
@@ -334,14 +348,17 @@
         this.activeRover = rover
         this.activeRover.status = "Active"
         
+        // Check if rover with same id already exists on the plateau.
+        // If it does do not create a new rover and instead activate current
         if (this.rovers.find(currentRover =&gt; currentRover.id === rover.id)) {
             console.log(`Tried to create a rover with an id that already exists. Activating rover ${rover.id}`);
             this.activeRover = null;
             this.activateRoverById(rover.id);
+            // If valid landing coordinates given, give success landing message
         } else if (this.isSpaceInBounds(rover.x, rover.y) &amp;&amp; this.isSpaceFree(rover.x, rover.y)) {
             console.log(`Rover${rover.id} has landed at [${rover.x}, ${rover.y}]!`)
-&nbsp;
         } else {
+            // If invalid landing coordinate was selected, crash and destroy rover
             console.log(`Oh the humanity! Rover ${rover.id} has crashed!`)
             this.activeRover.destroy()
             this.rovers.push(this.activeRover);
@@ -393,17 +410,21 @@
         <span class="missing-if-branch" title="if path not taken" >I</span>if (!this.activeRover) {
 <span class="cstat-no" title="statement not covered" >            return;</span>
         }
-&nbsp;
+        // Call turn method on rover if valid turning command given
         if (cmd === "L" || cmd === "R") {
             this.activeRover.turn(cmd);
             console.log(`Rover${this.activeRover.id} turned "${this.activeRover.direction}"`);
         } else {
+            // Determine the destination coordinates based on active rovers current location and orientation
             const destination = this.activeRover.findDestinationCoordinates();
+            
+            // Trigger different events based on status of destination square
             if (this.isSpaceFree(destination[0], destination[1])) {
+                // Successful move for valid destination
                 console.log(`Rover${this.activeRover.id} has moved to [${destination}]`)
                 this.activeRover.moveForward();
-&nbsp;
             } else {
+                // Crash destruction event and determine cause for console logging
                 console.log(`Oh the humanity! Rover ${this.activeRover.id} has crashed!`)
 &nbsp;
                 if (!this.isSpaceInBounds(destination[0], destination[1])) {
@@ -433,7 +454,7 @@ module.exports = Plateau;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 05 2021 18:09:48 GMT-0400 (Eastern Daylight Time)
+                at Thu Aug 05 2021 18:21:57 GMT-0400 (Eastern Daylight Time)
             </div>
         </div>
         <script src="prettify.js"></script>

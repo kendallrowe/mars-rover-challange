@@ -22,7 +22,7 @@ class Rover {
         }
 
         const movementChange = compassMap[this.direction];
-
+        // Read coordinates change as determined by the requested direction and adjust current coordinates
         return [this.x + movementChange[0], this.y + movementChange[1]];
     }
 
@@ -36,6 +36,7 @@ class Rover {
     turn(cmd) {
         const compass = ["N", "E", "S", "W"];
 
+        // Adjusting for looping around compass if at end of beginning
         let dirInd = compass.indexOf(this.direction);
         if (cmd === "L" && dirInd === 0) {
             dirInd = compass.length;
@@ -43,6 +44,7 @@ class Rover {
             dirInd = -1;
         }
 
+        // Determine next direction based on turn command given
         const turnAdjustment = cmd === "R" ? 1 : -1;
 
         this.direction = compass[dirInd + turnAdjustment];

@@ -20,6 +20,7 @@ class Mission {
     }
 
     outputMissionResults() {
+        // Print method to output final output of the mission rovers
         this.plateau.deactivateRover()
         if (!this.plateau) {
             console.log("You haven't set a plateau yet. No mission has been executed.")
@@ -35,6 +36,7 @@ class Mission {
     }
 
     readLine(line) {
+        // Router method to call parse line and call method based on line input
         if (line.includes("Plateau:")) {
             this.readPlateauCreation(line);
         } else if (line.includes("Landing:")) {
@@ -47,25 +49,30 @@ class Mission {
     }
 
     readPlateauCreation(line) {
+        // Parse string and create plateau if valid input was given
         const dimensions = line.substring(line.indexOf("Plateau:") + 8);
         const dimensionArr = dimensions.split(" ").map(ele => parseInt(ele));
 
+        // Input validations
         if (dimensionArr.filter(ele => ele).length !== 2) {
             console.log(`Invalid line: ${line}.`);
             return
         }
 
+        // Create new plateau
         this.plateau = new Plateau(dimensionArr[0], dimensionArr[1]);
 
     }
 
     readRoverLanding(line) {
+        // Parse string and create new rover if valid input was given
         const landingIndex = line.indexOf("Landing:");
 
         const roverId = parseInt(line.substring(5, landingIndex - 1));
 
         const roverCoords = line.substring(landingIndex + 8).split(" ")
 
+        // Input validations
         if (!roverId || roverCoords.length !== 3) {
             console.log(`Invalid line: ${line}`);
             return
@@ -76,25 +83,30 @@ class Mission {
             return
         }
 
+        // Create new rover
         const [x, y, direction] = roverCoords;
 
         this.plateau.addRover(new Rover(roverId, parseInt(x), parseInt(y), direction))
     }
 
     readRoverMovement(line) {
+        // Parse string and move rover for each command in list presented at end of line
         const instructionIndex = line.indexOf("Instructions:");
 
         const roverId = parseInt(line.substring(5, instructionIndex - 1));
 
         const roverInstructions = line.substring(instructionIndex + 13)
 
+        // Input validation
         if (!roverId) {
             console.log(`Invalid line: ${line}`);
             return
         }
 
+        // Activate current rover
         this.plateau.activateRoverById(roverId);
-
+        
+        // Loop through each command given in movement instructions
         for (let i = 0; i < roverInstructions.length; i++) {
             const cmd = roverInstructions.charAt(i)
             if (this.plateau.activeRover){
