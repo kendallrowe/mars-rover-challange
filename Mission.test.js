@@ -19,7 +19,12 @@ describe("Mission initialization tests", () => {
 });
 
 describe("Read line method tests", () => {
-    // Line by line parser
+    const instructions = `Plateau:5 5
+        Rover1 Landing:1 2 N
+        Rover1 Instructions:LMLMLMLMM
+        Rover2 Landing:3 3 E
+        Rover2 Instructions:MMRMMRMRRM`;
+
     const testMission = new Mission(instructions);
     
     test("if read line of plateau correctly instantiates a plateau on to the mission", () => {
@@ -46,7 +51,7 @@ describe("Read line method tests", () => {
         testMission.readLine(instruction);
         expect(testMission.plateau.activeRover.direction).toBe("W");
         expect(testMission.plateau.activeRover.x).toBe(0);
-        expect(testMission.plateau.activeRover.x).toBe(2);
+        expect(testMission.plateau.activeRover.y).toBe(2);
     });
 
     test("if read line of movement instruction for a destroyed rover triggers no event", () => {
@@ -62,6 +67,11 @@ describe("Read line method tests", () => {
 });
 
 describe("Multiple rover method tests", () => {
+    const instructions = `Plateau:5 5
+        Rover1 Landing:1 2 N
+        Rover1 Instructions:LMLMLMLMM
+        Rover2 Landing:3 3 E
+        Rover2 Instructions:MMRMMRMRRM`;
 
     const testMission = new Mission(instructions);
     testMission.plateau = new Plateau(5, 5);
@@ -83,7 +93,7 @@ describe("Multiple rover method tests", () => {
         testMission.readLine(instruction);
         expect(testMission.plateau.activeRover.direction).toBe("S");
         expect(testMission.plateau.activeRover.x).toBe(3);
-        expect(testMission.plateau.activeRover.x).toBe(1);
+        expect(testMission.plateau.activeRover.y).toBe(1);
     });
 });
 // Output messages
