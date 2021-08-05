@@ -1,4 +1,4 @@
 const Plateau = require("./Plateau");
-const Game = require("./Game");
+const Mission = require("./Mission");
 const Rover = require("./Rover");
 
