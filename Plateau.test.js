@@ -63,7 +63,12 @@ describe("Plateau add rover method tests", () => {
         const testPlateau = new Plateau(5, 5)
         const testRover1 = new Rover(0, 0, "N");
         testPlateau.addRover(testRover1);
-        expect(testPlateau.activeRover.x).toBe(0);
+
+        const testRover2 = new Rover(1, 1, "N");
+        testPlateau.addRover(testRover2);
+        expect(testPlateau.activeRover.x).toBe(1);
+        expect(testPlateau.rovers.length).toBe(1);
+        expect(testPlateau.rovers[0].x).toBe(0);
     });
     
     test("if addition fails when adding a rover to an occupied space", () => {
@@ -85,7 +90,7 @@ describe("Plateau add rover method tests", () => {
         testPlateau.addRover(testRover1);
         expect(testPlateau.rovers.length).toBe(1);
         expect(testPlateau.activeRover).toBeNull();
-        expect(testPlateau.rovers[1].status).toBe("D");
+        expect(testPlateau.rovers[0].status).toBe("D");
     });
 });
 

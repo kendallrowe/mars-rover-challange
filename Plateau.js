@@ -21,7 +21,6 @@ class Plateau {
             this.activeRover = null
             rover.destroy()
             this.rovers.push(rover);
-
         }
     }
 
