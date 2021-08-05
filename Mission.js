@@ -9,6 +9,7 @@ class Mission {
 
     executeInstructions(instructions = this.instructions) {
         console.log("Beginning execution of: ", instructions)
+        console.log("===============================")
         const lines = instructions.split("\n");
 
         for(let i = 0; i < lines.length; i++) {
@@ -40,7 +41,7 @@ class Mission {
             this.readRoverLanding(line);
         } else if (line.includes("Instructions:")) {
             this.readRoverMovement(line);
-        } else {
+        } else if (line.trim()) {
             console.log(`Invalid line: ${line}`);
         }
     }
@@ -96,13 +97,19 @@ class Mission {
 
         for (let i = 0; i < roverInstructions.length; i++) {
             const cmd = roverInstructions.charAt(i)
-
-            if (["L", "R", "M"].includes(cmd)) {
-                this.plateau.moveActiveRover(cmd)
+            if (this.plateau.activeRover){
+                if (["L", "R", "M"].includes(cmd)) {
+                    this.plateau.moveActiveRover(cmd)
+                } else {
+                    console.log(`Found invalid character "${cmd}" when reading instructions: "${roverInstructions}" in line ${line}. Skipping this instruction.`)
+                }
             } else {
-                console.log(`Found invalid character "${cmd}" when reading instructions: "${roverInstructions}" in line ${line}. Skipping this instruction.`)
+                break;
             }
+
         }
+
+        console.log(`Movement ended for Rover${roverId}`)
     }
 }
 

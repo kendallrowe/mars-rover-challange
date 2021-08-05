@@ -7,6 +7,11 @@ class Plateau {
     }
 
     activateRoverById(id) {
+        if (this.activeRover && this.activeRover.id === id) {
+            return this.activeRover
+        }
+        
+        this.deactivateRover()
         const roverToActivate = this.rovers.find(rover => rover.id === id);
 
         if (roverToActivate) {
@@ -29,7 +34,7 @@ class Plateau {
             this.activeRover = null;
             this.activateRoverById(rover.id);
         } else if (this.isSpaceInBounds(rover.x, rover.y) && this.isSpaceFree(rover.x, rover.y)) {
-            console.log(`Rover ${rover.id} has landed at [${rover.x}, ${rover.y}]!`)
+            console.log(`Rover${rover.id} has landed at [${rover.x}, ${rover.y}]!`)
 
         } else {
             console.log(`Oh the humanity! Rover ${rover.id} has crashed!`)
@@ -54,7 +59,7 @@ class Plateau {
     }
 
     isSpaceInBounds(x, y) {
-        if (x > this.width - 1 || y > this.height - 1) {
+        if (x > this.width || y > this.height) {
             return false
         }
 
@@ -81,7 +86,7 @@ class Plateau {
 
     moveActiveRover(cmd) {
         if (!this.activeRover) {
-            return false;
+            return;
         }
 
         if (cmd === "L" || cmd === "R") {

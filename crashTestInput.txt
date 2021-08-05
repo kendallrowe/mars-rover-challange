@@ -1,0 +1,9 @@
+Plateau:5 5
+Rover1 Landing:1 2 N
+Rover1 Instructions:LMMMMMMLMLMLMM
+Rover2 Landing:3 3 E
+Rover2 Instructions:MMRMMRMRRM
+Rover3 Landing:3 3 E
+Rover3 Instructions:MMRMMRMRRM
+Rover4 Landing:2 3 E
+Rover4 Instructions:MMRMMRMRRM

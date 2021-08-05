@@ -1,7 +1,7 @@
 const Plateau = require("./Plateau");
 const Rover = require("./Rover");
 
-// need activaterover, deactivaterover, returnActiveRovers
+
 
 describe("Plateau initialization tests", () => {
     
@@ -141,5 +141,30 @@ describe("Plateau rover movement tests", () => {
         expect(plateau.activeRover).toBeNull();
         expect(plateau.rovers[0].status).toBe("Idle");
         expect(plateau.rovers[1].status).toBe("Destroyed");
+    });
+});
+
+describe("Rover activation tests", () => {
+    // need activaterover, deactivaterover
+
+    test("if rover can be activated from Idle by id", () => {
+        const plateau = new Plateau(5, 5);
+        plateau.addRover(new Rover(1, 0, 0, "N"));
+        plateau.addRover(new Rover(2, 1, 1, "N"));
+
+        expect(plateau.activeRover.id).toBe(2);
+        expect(plateau.rovers[0].id).toBe(1)
+        plateau.activateRoverById(1)
+        expect(plateau.activeRover.id).toBe(1);
+        expect(plateau.rovers[0].id).toBe(2)
+    });
+
+    test("if rover can be deactivated", () => {
+        const plateau = new Plateau(5, 5);
+        plateau.addRover(new Rover(1, 0, 0, "N"));
+        plateau.deactivateRover()
+
+        expect(plateau.activeRover).toBeNull();
+        expect(plateau.rovers[0].id).toBe(1)
     });
 });
