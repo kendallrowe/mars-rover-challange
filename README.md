@@ -1,9 +1,10 @@
 # KR Approach
 ## Assumptions
-1. Out of bounds movement will trigger a mission over event
-2. Collision with other rovers on the mission plateau will trigger a mission over event
+1. Out of bounds movement will trigger a crash event. This will update status of the moving rover to "Destroyed". It will no longer have ability to move.
+2. Collision with other rovers on the mission plateau will trigger a crash event. This will update status of the moving rover to "Destroyed". It will no longer have ability to move. The original rover in the space will remain intact.
 3. No collission terrain on the mission plateau
-4. Rovers will move sequentially (Rover 1 completes all moves, then Rover 2 lands and completes all moves)
+4. Rovers will move sequentially (Rover 1 completes all moves, then Rover 2 lands and completes all moves).
+5. Attempting to land a rover out of bounds or on another rover will both trigger crash events on the landing rover. In place rovers will be left intact.
 
 ## Approach:
 There are a few different approaches to be used for building this app. Each will have pros and cons that I have outlined below to describe why I have selected the approach that I have:
