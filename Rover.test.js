@@ -45,6 +45,38 @@ describe("Rover movement tests", () => {
         expect(dest[1]).toBe(1);
     });
 
+    test("if rover can move 1 unit north", () => {
+        const testRover = new Rover(2, 2, "N")
+
+        testRover.moveForward();
+        expect(testRover.x).toBe(2);
+        expect(testRover.y).toBe(3);
+    });
+
+    test("if rover can move 1 unit east", () => {
+        const testRover = new Rover(2, 2, "E")
+
+        testRover.moveForward();
+        expect(testRover.x).toBe(3);
+        expect(testRover.y).toBe(2);
+    });
+
+    test("if rover can move 1 unit south", () => {
+        const testRover = new Rover(2, 2, "S")
+
+        testRover.moveForward();
+        expect(testRover.x).toBe(2);
+        expect(testRover.y).toBe(1);
+    });
+
+    test("if rover can move 1 unit west", () => {
+        const testRover = new Rover(2, 2, "W")
+
+        testRover.moveForward();
+        expect(testRover.x).toBe(1);
+        expect(testRover.y).toBe(2);
+    });
+
     test("if rover can turn left", () => {
         const testRover = new Rover(0, 0, "N")
 
