@@ -1,7 +1,7 @@
-class Board {
+class Plateau {
     constructor() {
-        
+
     }
 }
 
-module.exports = Board;
+module.exports = Plateau;

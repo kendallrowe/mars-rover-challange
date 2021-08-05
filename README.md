@@ -1,60 +1,60 @@
 # KR Approach
 ## Assumptions
 1. Out of bounds movement will trigger a game over event
-2. Collision with other rovers on the game board will trigger a game over event
-3. No collission terrain on the game board
+2. Collision with other rovers on the game plateau will trigger a game over event
+3. No collission terrain on the game plateau
 4. Rovers will move sequentially (Rover 1 completes all moves, then Rover 2 lands and completes all moves)
 
 ## Approach:
 There are a few different approaches to be used for building this app. Each will have pros and cons that I have outlined below to describe why I have selected the approach that I have:
-### Rover Classes without a Gameboard
-Due to the simplicity of the game board itself and lack of collision terrain there is not actually a need to render a game board in memory. Tracking movement in this case will consist of the following steps:
+### Rover Classes without a Gameplateau
+Due to the simplicity of the game plateau itself and lack of collision terrain there is not actually a need to render a game plateau in memory. Tracking movement in this case will consist of the following steps:
 1. Read current location from direction, x, y attributes of the rover
 2. Implement direction change if required (left vs right)
 3. If forward move read from current direction attribute to determine whether movement will be increase/decrease to x/y
 4. Collision checks
-    * Does move leave the coordinates of the game board?
+    * Does move leave the coordinates of the game plateau?
     * Check for all rovers currently active whether they are currently occupying the destination square
 5. Update current coordinates
 
 #### Pros:
 * Simple approach. Does not require nested array lookups for each turn  move. Can update and track all movement within a single rover class without array updating and checking.
-* Efficient time and space complexity - Movements can be tracked by simple monitoring current location coordinates without interacting with a nested array/matrix game board.
+* Efficient time and space complexity - Movements can be tracked by simple monitoring current location coordinates without interacting with a nested array/matrix game plateau.
 
 #### Cons:
 * Lack of future flexibility if requirements were to change:
-    * Implement collision terrain on the board require another class object
-    * Rendering graphical interface of the gameboard would require a separate feature build
+    * Implement collision terrain on the plateau require another class object
+    * Rendering graphical interface of the gameplateau would require a separate feature build
 
-### Gameboard with nested array:
-This is the most intuitive logical approach. By creating a matrix nested array that contains an letter "nN", "nE", "nS", "nW" where n represents the current rover number, a single board can be used to  track the entire state of the game. A separate array could be used to track the current active rovers and their current locations if desired. Movement would be tracked by completing an algorithm to:
-1. Find location of current rover (either by scanning gameboard or using active rover tracker array)
+### Gameplateau with nested array:
+This is the most intuitive logical approach. By creating a matrix nested array that contains an letter "nN", "nE", "nS", "nW" where n represents the current rover number, a single plateau can be used to  track the entire state of the game. A separate array could be used to track the current active rovers and their current locations if desired. Movement would be tracked by completing an algorithm to:
+1. Find location of current rover (either by scanning gameplateau or using active rover tracker array)
 2. Read state of rover (id number and current direction)
 3. Check state of next square for collision criteria
 4. Update square of destination if move successful or trigger destruction event if collision
 
 #### Pros:
-* Easy to integrate new changes to game board state such as new collision terrain
-* Gameboard can be rendered at any time since it is always live and updated
+* Easy to integrate new changes to game plateau state such as new collision terrain
+* Gameplateau can be rendered at any time since it is always live and updated
 
 #### Cons:
 * Tracking movement requires navigation of nested array. Each lookup and movement will require updating the previous square and destination squares to new values.
 * Future flexibility of features of rovers would be challenging (e.g. introduce number of lives for a rover.)
 
-### Gameboard class with Rover classes
-Hybrid approach of the above two. Leverage rover classes and a gameboard class to track state of all existing items on the board. Can either maintain an actual nested array at all times that represents the current location of all items or can use a render method to generate the current state on demand depending on requirements.
+### Gameplateau class with Rover classes
+Hybrid approach of the above two. Leverage rover classes and a gameplateau class to track state of all existing items on the plateau. Can either maintain an actual nested array at all times that represents the current location of all items or can use a render method to generate the current state on demand depending on requirements.
 
-Movement tracking would match that in approach one with a difference being in that all active rovers would be stored within the Board class instead of a global array.
+Movement tracking would match that in approach one with a difference being in that all active rovers would be stored within the Plateau class instead of a global array.
 
 #### Pros:
 * Future flexibility to changes in requirements since each class is modular and can have new items such as terrain or life points on rovers added separately.'
-* Remains an efficient solution both in space and time complexity if choosing to only render the gameboard on demand.
+* Remains an efficient solution both in space and time complexity if choosing to only render the gameplateau on demand.
 
 #### Cons:
 * No signficant downside vs either other approach
 
 ## Decision
-Based on future compatibility, easy of development and performance I decided to develop the third approach - leveraging a rover class and board/game class. 
+Based on future compatibility, easy of development and performance I decided to develop the third approach - leveraging a rover class and plateau/game class. 
 
 # Requirements
 
@@ -64,7 +64,7 @@ Based on future compatibility, easy of development and performance I decided to 
 
 A squad of robotic rovers are to be landed by NASA on a plateau on Mars.
 
-This plateau, which is curiously rectangular, must be navigated by the rovers so that their on board cameras can get a complete view of the surrounding terrain to send back to Earth.
+This plateau, which is curiously rectangular, must be navigated by the rovers so that their on plateau cameras can get a complete view of the surrounding terrain to send back to Earth.
 
 A rover's position is represented by a combination of x and y co-ordinates and a letter representing one of the four cardinal compass points. The plateau is divided up into a grid to simplify navigation. An example position might be `0, 0, N`, which means the rover is in the bottom left corner and facing North.
 

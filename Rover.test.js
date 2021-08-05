@@ -1,5 +1,5 @@
 const Rover = require("./Rover");
-const Board = require("./Board");
+const Plateau = require("./Plateau");
 
 describe("Rover initialization tests", () => {
     
@@ -36,7 +36,7 @@ describe("Rover destruction test", () => {
 });
 
 describe("Rover movement tests", () => {
-    const board = new Board();
+    const plateau = new Plateau(5);
 
     test("if rover can return destination coordinates of a forward move", () => {
         const testRover = new Rover(0, 0, "N")
@@ -47,31 +47,31 @@ describe("Rover movement tests", () => {
     });
     
     test("if rover can move forward to an open square", () => {
-        board.addRover(new Rover(0, 0, "N"));
+        plateau.addRover(new Rover(0, 0, "N"));
 
-        board.moveActiveRover("M");
-        expect(board.activeRover.x).toBe(0)
-        expect(board.activeRover.y).toBe(1)
-        expect(board.activeRover.status).toBe("A");
+        plateau.moveActiveRover("M");
+        expect(plateau.activeRover.x).toBe(0)
+        expect(plateau.activeRover.y).toBe(1)
+        expect(plateau.activeRover.status).toBe("A");
     });
     
     test("if rover moves forward out of bounds it is destroyed", () => {
-        board.addRover(new Rover(0, 0, "S"));
+        plateau.addRover(new Rover(0, 0, "S"));
 
-        board.moveActiveRover("M");
-        expect(board.activeRover.x).toBe(-1)
-        expect(board.activeRover.y).toBe(-1)
-        expect(board.activeRover.status).toBe("D");
+        plateau.moveActiveRover("M");
+        expect(plateau.activeRover.x).toBe(-1)
+        expect(plateau.activeRover.y).toBe(-1)
+        expect(plateau.activeRover.status).toBe("D");
     });
 
     test("if rover moves forward to an occupied space it is destroyed", () => {
-        board.addRover(new Rover(1, 0, "N"));
-        board.addRover(new Rover(0, 0, "E"));
+        plateau.addRover(new Rover(1, 0, "N"));
+        plateau.addRover(new Rover(0, 0, "E"));
 
-        board.moveActiveRover("M");
-        expect(board.activeRover.x).toBe(-1)
-        expect(board.activeRover.y).toBe(-1)
-        expect(board.activeRover.status).toBe("D");
+        plateau.moveActiveRover("M");
+        expect(plateau.activeRover.x).toBe(-1)
+        expect(plateau.activeRover.y).toBe(-1)
+        expect(plateau.activeRover.status).toBe("D");
     });
 
     test("if rover can turn left", () => {
